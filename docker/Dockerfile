@@ -5,7 +5,7 @@ MAINTAINER pykiss
 LABEL version="1.0"
 
 WORKDIR /meteor
-COPY docker/start.sh /
+COPY start.sh /
 
 ENTRYPOINT ["/start.sh"]
 
