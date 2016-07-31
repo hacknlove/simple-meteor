@@ -4,7 +4,7 @@ MAINTAINER pykiss
 
 LABEL version="1.0"
 RUN apt-get update
-RUN apt-get installvsudo
+RUN apt-get install sudo
 RUN apt-get autoclean
 
 WORKDIR /meteor
