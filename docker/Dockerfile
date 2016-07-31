@@ -2,10 +2,7 @@ FROM node:6.3.0-wheezy
 
 MAINTAINER pykiss
 
-LABEL version="1.0"
-RUN apt-get update
-RUN apt-get install sudo
-RUN apt-get autoclean
+LABEL version="2.0"
 
 WORKDIR /meteor
 COPY start.sh /

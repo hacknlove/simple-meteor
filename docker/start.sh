@@ -1,8 +1,5 @@
-DEFAULTUSER=`stat -c %u /meteor`
-
-USER=${USER:=$DEFAULTUSER}
-
 cd /meteor/programs/server
-sudo -E -u "#$USER" npm install
+npm install
+chmod -R a+w /meteor
 cd /meteor
-sudo -E -u "#$USER" node main.js
+node main.js
