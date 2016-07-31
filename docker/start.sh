@@ -1,4 +1,8 @@
+DEFAULTUSER=`stat -c %u /meteor`
+
+USER=${USER:=$DEFAULTUSER}
+
 cd /meteor/programs/server
-npm install --unsafe-perm
+sudo -E -u "#$USER" npm install
 cd /meteor
-node main.js
+sudo -E -u "#$USER" node main.js
