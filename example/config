@@ -1,8 +1,13 @@
+## building configuration
 # where to save the build in your local file system
 buildPath=/tmp/myMeteorApp$next
 
 # where to find your sources
 meteorRoute=~/myMeteorApp
+
+## uploading and hosting configuration
+## you can place here, common configuration to all your nodes
+## every setting can be overwritten in the respective server/*.conf file
 
 # the name of the app (used in folders and containers' name)
 appName=myMeteorApp
@@ -15,14 +20,9 @@ dockerImage=pykiss/simple-meteor
 # time to wait for the container to be serving your app
 sleep=1m
 
-# no comments
+# some well knew meteor enviroment variables
 MONGO_URL="mongodb://mongo1.example.com,mongo1.example.com,mongo1.example.com/myMeteorApp?replicaSet=myReplica"
 MONGO_OPLOG_URL="mongodb://mongo1.example.com,mongo1.example.com,mongo1.example.com/myMeteorApp?replicaSet=myReplica"
 ROOT_URL=http://mymeteorapp.example.com
-
-# you can place here, common configuration to all your nodes
-user=foo
-server=node1.example.com
-to=/home/$user/$appName
-port=8888
-bindIp=127.0.0.1
+PORT=8888
+METEOR_SETTINGS=`cat settings.json`

@@ -35,8 +35,9 @@ cleanBuild () {
 }
 
 restoreContainers () {
+  trap ERR
   log "-restoreContainers"
-  for f in servers/* ; do
+  for f in servers/*.conf ; do
     echo "--$f"
     source config
     source $f
@@ -49,7 +50,7 @@ restoreContainers () {
 clean () {
   trap ERR
   log "-Cleaning servers"
-  for f in servers/* ; do
+  for f in servers/*.conf ; do
     echo "--$f"
     source config
     source $f
@@ -70,8 +71,8 @@ upload () {
   trap ERR
   trap 'errorMesage "error uploading";clean; exit;' ERR
   log "-Uploading bundles"
-  for f in servers/* ; do
-    echo $f
+  for f in servers/*.conf ; do
+    echo "--$f"
     source config
     source $f
     rsync --info=progress2 -acz $buildPath/bundle/ $user@$server:$to[$next]
@@ -83,8 +84,8 @@ startContainers () {
   trap ERR
   trap 'errorMesage "error starting containers";restoreContainers $next;clean;cleanBuild; exit;' ERR
   log "-Starting containers"
-  for f in servers/* ; do
-    # echo "--$f"
+  for f in servers/*.conf ; do
+    echo "--$f"
     source config
     source $f
     log "---updating image"
@@ -95,7 +96,7 @@ startContainers () {
       ssh -t $user@$server docker stop $appName$version || log "---may be there is no old container"
     fi
     log "---lauching new container"
-    ssh -t $user@$server docker run -d --name=$appName$next -v $to[$next]/:/meteor --restart=always -e ROOT_URL=$ROOT_URL -e MONGO_URL=$MONGO_URL -e MONGO_OPLOG_URL=$MONGO_OPLOG_URL -e BIND_IP=$bindIp -e PORT=$port --net=host $dockerImage
+    ssh -t $user@$server docker run -d --name=$appName$next -v $to[$next]/:/meteor --restart=always -e ROOT_URL=$ROOT_URL -e MONGO_URL=$MONGO_URL -e MONGO_OPLOG_URL=$MONGO_OPLOG_URL -e BIND_IP=$bindIp -e PORT=$port -e METEOR_SETTINGS='$METEOR_SETTINGS' $EXTRA_DOCKER --net=host $dockerImage
     log "---waitting $sleep"
     sleep $sleep
     log "---testing new container"
@@ -106,7 +107,7 @@ startContainers () {
 cleanOldVersion () {
   trap ERR
   log "-Cleaning old containers and files"
-  for f in servers/* ; do
+  for f in servers/*.conf ; do
     source config
     source $f
     log "---removing old container"
@@ -124,8 +125,12 @@ log "\n\n\nStart:\n\n\n"
 build
 upload
 startContainers
+
 if [ "$version" -ne "0" ]
 then
   cleanOldVersion
 fi
+
 incrementVersion
+
+log "\n\n\DONE\n\n\n"
