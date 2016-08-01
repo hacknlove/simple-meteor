@@ -1,10 +1,10 @@
 ln -s `which nodejs` /usr/bin/node
 cd /meteor/programs/server
-echo "\ninstall"
+echo "install"
 npm install
-echo "\nrebuild"
+echo "rebuild"
 npm rebuild
 chmod -R a+w /meteor
 cd /meteor
-echo "\nstart"
+echo "start"
 nodejs main.js
