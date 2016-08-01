@@ -1,0 +1,3 @@
+#there is no need to repeat everytime each value, you can place it in the general config file
+
+server=node2.example.com

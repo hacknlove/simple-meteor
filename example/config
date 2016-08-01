@@ -1,0 +1,28 @@
+# where to save the build in your local file system
+buildPath=/tmp/myMeteorApp$next
+
+# where to find your sources
+meteorRoute=~/myMeteorApp
+
+# the name of the app (used in folders and containers' name)
+appName=myMeteorApp
+
+# the docker image to be used
+# if you want to use, other, you might edit the our "docker run" line
+# see deploy.sh
+dockerImage=pykiss/simple-meteor
+
+# time to wait for the container to be serving your app
+sleep=1m
+
+# no comments
+MONGO_URL="mongodb://mongo1.example.com,mongo1.example.com,mongo1.example.com/myMeteorApp?replicaSet=myReplica"
+MONGO_OPLOG_URL="mongodb://mongo1.example.com,mongo1.example.com,mongo1.example.com/myMeteorApp?replicaSet=myReplica"
+ROOT_URL=http://mymeteorapp.example.com
+
+# you can place here, common configuration to all your nodes
+user=foo
+server=node1.example.com
+to=/home/$user/$appName
+port=8888
+bindIp=127.0.0.1

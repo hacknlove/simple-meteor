@@ -1,0 +1,6 @@
+# you can have the same app many times on the same server
+
+server=node1.example.com
+port=8889
+appName=myMeteorAppBis
+to=/home/$user/$appName

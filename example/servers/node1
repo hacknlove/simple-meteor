@@ -1,0 +1,16 @@
+#ssh user
+user=foo
+
+#ssh server
+server=node1.example.com
+
+#there is no password variable, because I do not use, and you must not.
+#it is far better to use ssl keys
+
+#where to store the files in your server
+#we can use here, every variable previously declared
+to=/home/$user/$appName
+
+# port and ip to bind your meteor app
+port=8888
+bindIp=127.0.0.1
