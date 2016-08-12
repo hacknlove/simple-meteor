@@ -96,7 +96,7 @@ startContainers () {
       ssh -t $user@$server docker stop $appName$version || log "---may be there is no old container"
     fi
     log "---lauching new container"
-    ssh -t $user@$server docker run -d --name=$appName$next -v $to[$next]/:/meteor --restart=always -e ROOT_URL=$ROOT_URL -e MONGO_URL=$MONGO_URL -e MONGO_OPLOG_URL=$MONGO_OPLOG_URL -e BIND_IP=$bindIp -e PORT=$port -e METEOR_SETTINGS='$METEOR_SETTINGS' $EXTRA_DOCKER --net=host $dockerImage
+    ssh -t $user@$server docker run -d --name=$appName$next -v $to[$next]/:/meteor --restart=always -e ROOT_URL=$ROOT_URL -e MONGO_URL=$MONGO_URL -e MONGO_OPLOG_URL=$MONGO_OPLOG_URL -e BIND_IP=$bindIp -e PORT=$port -e METEOR_SETTINGS="'"$METEOR_SETTINGS"'" $EXTRA_DOCKER --net=host $dockerImage
     log "---waitting $sleep"
     sleep $sleep
     log "---testing new container"
